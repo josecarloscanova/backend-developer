@@ -13,11 +13,10 @@ import javax.persistence.Lob;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(Include.NON_NULL)
 @Entity
@@ -36,7 +35,7 @@ public class Post implements Base<Long>{
 	@Column(nullable=false , insertable=true , updatable=true)
 	private String title;
 	
-	@Column(nullable=false , insertable=true , updatable=true)
+	@Column(nullable=false , insertable=true , updatable=false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
 	@JsonProperty(value="created")
 	private Date timeStamp;
