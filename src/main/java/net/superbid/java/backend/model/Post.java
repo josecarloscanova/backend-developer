@@ -30,18 +30,18 @@ public class Post implements Base<Long>{
 	@Lob
 	private String content; 
 	
-	@Column 
+	@Column(nullable=false , insertable=true , updatable=true) 
 	private String description; 
 	
-	@Column
+	@Column(nullable=false , insertable=true , updatable=true)
 	private String title;
 	
-	@Column
+	@Column(nullable=false , insertable=true , updatable=true)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
 	@JsonProperty(value="created")
 	private Date timeStamp;
 	
-	@Column
+	@Column(nullable=true , insertable=true , updatable=true)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
 	@JsonProperty(value="updated")
 	private Date updateTimeStamp;	
