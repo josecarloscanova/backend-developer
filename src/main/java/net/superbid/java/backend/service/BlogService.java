@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.superbid.java.backend.model.BlogMessage;
+import net.superbid.java.backend.model.Message;
 import net.superbid.java.backend.model.Post;
 
 @Service
@@ -18,21 +18,21 @@ public class BlogService {
 		return postRepository.findAll();
 	}
 	
-	public BlogMessage createUpdatePost(Post post) {
-		return new BlogMessage(postRepository.save(post));
+	public Message createUpdatePost(Post post) {
+		return new Message(postRepository.save(post));
 	}
 	
-	public void deletePost(Post post) { 
-		postRepository.delete(post);
+	public void deletePost(Long id) { 
+		postRepository.delete(new Post(id , null , null , null));
 	}
 	
-	public BlogMessage findPost(Long id) { 
+	public Message findPost(Long id) { 
 		Optional<Post> result = postRepository.findById(id);
-		BlogMessage message; 
+		Message message; 
 		if (result.isPresent()) {
-			message = new  BlogMessage(result.get());
+			message = new  Message(result.get());
 		}else { 
-			message = new BlogMessage();
+			message = new Message();
 		}
 		return message;
 	}

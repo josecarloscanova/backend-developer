@@ -18,35 +18,52 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel
 @JsonInclude(Include.NON_NULL)
 @Entity
 public class Post implements Base<Long>{
 
+	@ApiModelProperty(required=false)
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id; 
 	
+	@ApiModelProperty(required=true)
 	@Lob
 	private String content; 
 	
+	@ApiModelProperty(required=true)
 	@Column(nullable=false , insertable=true , updatable=true) 
 	private String description; 
 	
+	@ApiModelProperty(required=true)
 	@Column(nullable=false , insertable=true , updatable=true)
 	private String title;
 	
+	@ApiModelProperty(required=false)
 	@Column(nullable=false , insertable=true , updatable=false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-	@JsonProperty(value="created")
-	private Date timeStamp;
+	private Date created;
 	
+	@ApiModelProperty(required=false)
 	@Column(nullable=true , insertable=true , updatable=true)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-	@JsonProperty(value="updated")
-	private Date updateTimeStamp;	
+	private Date updated;	
 
 	public Post() {}
 	
+	public Post(Long id, String content, String description, String title) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.description = description;
+		this.title = title;
+	}
+
+
 	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
 	public Long getId() {
 		return id;
@@ -76,29 +93,26 @@ public class Post implements Base<Long>{
 		this.title = title;
 	}
 
-	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
-	public Date getTimeStamp() {
-		return timeStamp;
+
+	public Date getCreated() {
+		return created;
 	}
 
-	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
-	public Date getUpdateTimeStamp() {
-		return updateTimeStamp;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
-	@PrePersist
-    public void prePersist() {
-		timeStamp = Calendar.getInstance().getTime();
-    }
+	public Date getUpdated() {
+		return updated;
+	}
 
-    @PreUpdate
-    public void preUpdate() {
-    	updateTimeStamp = Calendar.getInstance().getTime();
-    }
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id , content , title , description , timeStamp);
+		return Objects.hash(id , content , title , description , created);
 	}
 
     @Override

@@ -4,23 +4,23 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
-public class BlogMessage {
+public class Message {
 
-	private Object data;
+	private Post data;
 
-	public BlogMessage () {
+	public Message () {
 	}
 	
-	public BlogMessage (Object data) {
+	public Message (Post data) {
 		this();
 		this.data = data;
 	}
 
-	public Object getData() {
+	public Post getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(Post data) {
 		this.data = data;
 	}
 	
