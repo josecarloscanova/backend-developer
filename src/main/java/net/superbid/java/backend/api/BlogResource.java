@@ -59,11 +59,11 @@ public class BlogResource {
 		return new ResponseEntity<>(message , null , HttpStatus.CREATED);
 	}
 
-	@ApiResponses(value= {@ApiResponse(code=200 , message="Return a specific blog post by its id" , response=Message.class)})
+	@ApiResponses(value= {@ApiResponse(code=200 , message="Update a specific blog post by its id" , response=Message.class)})
 	@ApiOperation(value = "Update a blog post" , response=Message.class)
-	@PutMapping(produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public Message updateBlogPost(@RequestBody Post post) {
-		return blogService.createUpdatePost(post);
+	@PutMapping(path="/{id}" , produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public Message updateBlogPost(@PathVariable Long id , @RequestBody Post post) {
+		return blogService.updatePost(id , post);
 	}
 	
 	@ApiResponses(value= {@ApiResponse(code=200 , message="Delete an existent blog post otherwise do nothing" , response=Void.class)})

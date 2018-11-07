@@ -63,7 +63,10 @@ public class Post implements Base<Long>{
 		this.title = title;
 	}
 
-
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
 	public Long getId() {
 		return id;
@@ -110,6 +113,16 @@ public class Post implements Base<Long>{
 		this.updated = updated;
 	}
 
+	@PrePersist
+	private void prePersist() { 
+		this.created = Calendar.getInstance().getTime();
+	}
+	
+	@PreUpdate
+	private void preUpdate() { 
+		this.updated = Calendar.getInstance().getTime();
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id , content , title , description , created);

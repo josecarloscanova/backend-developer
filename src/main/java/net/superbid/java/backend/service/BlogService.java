@@ -22,6 +22,12 @@ public class BlogService {
 		return new Message(postRepository.save(post));
 	}
 	
+	public Message updatePost(Long id , Post post) {
+		if (postRepository.existsById(id))
+			post.setId(id);
+		return createUpdatePost(post);
+	}
+	
 	public void deletePost(Long id) { 
 		postRepository.delete(new Post(id , null , null , null));
 	}
