@@ -1,5 +1,7 @@
 package net.superbid.java.backend.model;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,7 +10,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 @Entity
 public class Post implements Base<Long>{
 
@@ -24,6 +35,16 @@ public class Post implements Base<Long>{
 	
 	@Column
 	private String title;
+	
+	@Column
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
+	@JsonAlias(value="created")
+	private Date timeStamp;
+	
+	@Column
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
+	@JsonAlias(value="updated")
+	private Date updateTimeStamp;	
 
 	public Post() {}
 	
@@ -59,12 +80,32 @@ public class Post implements Base<Long>{
 		this.title = title;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id , content , title , description);
+	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
+	public Date getTimeStamp() {
+		return timeStamp;
 	}
 
+	@JsonProperty(access=JsonProperty.Access.READ_ONLY)
+	public Date getUpdateTimeStamp() {
+		return updateTimeStamp;
+	}
+
+	@PrePersist
+    public void prePersist() {
+		timeStamp = Calendar.getInstance().getTime();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+    	updateTimeStamp = Calendar.getInstance().getTime();
+    }
+
 	@Override
+	public int hashCode() {
+		return Objects.hash(id , content , title , description , timeStamp);
+	}
+
+    @Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -95,5 +136,5 @@ public class Post implements Base<Long>{
 			return false;
 		return true;
 	}
-	
+
 }
