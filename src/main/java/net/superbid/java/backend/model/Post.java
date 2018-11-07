@@ -38,12 +38,12 @@ public class Post implements Base<Long>{
 	
 	@Column
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-	@JsonAlias(value="created")
+	@JsonProperty(value="created")
 	private Date timeStamp;
 	
 	@Column
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
-	@JsonAlias(value="updated")
+	@JsonProperty(value="updated")
 	private Date updateTimeStamp;	
 
 	public Post() {}
