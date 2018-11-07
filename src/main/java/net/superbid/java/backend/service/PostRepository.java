@@ -7,10 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import net.superbid.java.backend.model.Post;
 
-public interface PostRepository extends CrudRepository<Post , Long>{
+public interface PostRepository extends CrudRepository<Post , Long> , BaseRepository<Post , Long>{
 
-	public List<Post> findAll();
-	
-	public Optional<Post> findById(Long id);
-	
 }

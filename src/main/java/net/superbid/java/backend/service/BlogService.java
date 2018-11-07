@@ -1,6 +1,5 @@
 package net.superbid.java.backend.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ public class BlogService {
 	@Autowired
 	private PostRepository postRepository;
 	
-	public List<Post> retrieveAllPosts(){ 
+	public Iterable<Post> retrieveAllPosts(){ 
 		return postRepository.findAll();
 	}
 	

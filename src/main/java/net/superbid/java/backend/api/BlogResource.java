@@ -37,7 +37,7 @@ public class BlogResource {
 	@ApiResponses(value= {@ApiResponse(code=200 , message="Return an array of Posts" , response=Post.class , responseContainer="List")})
 	@ApiOperation(value = "Return all posts")
 	@GetMapping(produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public List<Post> retrieveBlogPost() {
+	public Iterable<Post> retrieveBlogPost() {
 			return blogService.retrieveAllPosts();
 	}
 	

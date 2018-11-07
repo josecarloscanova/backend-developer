@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 @Entity
-public class Post {
+public class Post implements Base<Long>{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
