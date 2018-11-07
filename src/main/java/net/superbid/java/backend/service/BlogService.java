@@ -29,7 +29,8 @@ public class BlogService {
 	}
 	
 	public void deletePost(Long id) { 
-		postRepository.delete(new Post(id , null , null , null));
+		if (postRepository.existsById(id))
+			postRepository.delete(new Post(id , null , null , null));
 	}
 	
 	public Message findPost(Long id) { 
